@@ -1,0 +1,1 @@
+//full cart view page
