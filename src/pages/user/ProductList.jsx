@@ -1,22 +1,23 @@
-// fetch and render products
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../../api/products";
+import { getProducts } from "../../api/Products";
 import ProductCard from "../../components/product/ProductCard";
 
-const ProductList = () => {
+function ProductList() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetchProducts().then(setProducts);
+    getProducts()
+      .then(res => setProducts(res.data))
+      .catch(err => console.error(err));
   }, []);
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {products.map((product) => (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+      {products.map(product => (
         <ProductCard key={product.id} product={product} />
       ))}
-    </section>
+    </div>
   );
-};
+}
 
 export default ProductList;
