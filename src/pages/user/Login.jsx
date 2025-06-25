@@ -8,9 +8,3 @@ const LoginPage = () => {
     </div>
   );
 };
-
-<<<<<<< HEAD
-export default LoginPage;
-=======
-export default LoginPage;
->>>>>>> 90a90a99fa7ec6531763876d70af5b10efd37c7b
