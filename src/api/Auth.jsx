@@ -26,6 +26,6 @@ export const fetchProfile = async () => {
     const res = await api.get("/profile"); // Token is auto-attached by interceptor
     return { ok: true, data: res.data };
   } catch (err) {
-    return { ok: false, error: err.response?.data?.error || "Profile fetch failed" };
-  }
-};
+      return { ok: false, error: err.response?.data?.error || "Profile fetch failed" };
+    }
+  };
