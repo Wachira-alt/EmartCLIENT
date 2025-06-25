@@ -29,3 +29,4 @@ export const updateProduct = async (id, updates) => {
 export const deleteProduct = async (id) => {
   await axiosInstance.delete(`/products/${id}`);
 };
+};

@@ -1,3 +1,4 @@
+// fetch and render products
 import { useEffect, useState } from "react";
 import { fetchProducts } from "../../api/products";
 import ProductCard from "../../components/product/ProductCard";
@@ -18,4 +19,5 @@ const ProductList = () => {
   );
 };
 
+export default ProductList;
 export default ProductList;
