@@ -1,4 +1,3 @@
-//fetch cart logic with axios
 import axiosInstance from "./axiosInstance";
 
 // GET all cart items
