@@ -9,7 +9,6 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
   const navLink =
     "text-sm font-medium text-[#3B3A36] hover:text-[#6F4E37] transition duration-200";
 
@@ -28,21 +27,18 @@ export default function Navbar() {
         {/* Nav Links */}
         <div className="flex gap-6 items-center">
 
-          {/* Client Pages */}
           <NavLink to="/" className={navLink}>Home</NavLink>
           <NavLink to="/products" className={navLink}>Products</NavLink>
 
           {/* Cart Icon */}
-         <div className="relative">
-          <NavLink to="/cart" className={navLink}>
-            Cart
-          </NavLink>
-          {cartCount > 0 && (
-            <span className="absolute -top-2 -right-3 bg-[#6F4E37] text-white text-[10px] rounded-full px-[6px] py-[1px] shadow-inner">
-              {cartCount}
-            </span>
-          )}
-        </div>
+          <div className="relative">
+            <NavLink to="/cart" className={navLink}>Cart</NavLink>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-3 bg-[#6F4E37] text-white text-[10px] rounded-full px-[6px] py-[1px] shadow-inner">
+                {cartCount}
+              </span>
+            )}
+          </div>
 
           {/* Authenticated User */}
           {user ? (
@@ -56,7 +52,7 @@ export default function Navbar() {
                 </button>
               )}
               <NavLink to="/profile" className={navLink}>Profile</NavLink>
-              <NavLink to="/orders" className={navLink}>My Orders</NavLink>
+              <NavLink to="/my-orders" className={navLink}>My Orders</NavLink>
               <NavLink to="/checkout" className={navLink}>Checkout</NavLink>
               <button
                 onClick={logout}
