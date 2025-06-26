@@ -1,44 +1,117 @@
-import { useState } from "react";
-import { createProduct } from "../../api/products";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import {
+  createProduct,
+  updateProduct,
+} from "../../api/products";
 
-const AdminProductForm = ({ onCreated }) => {
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    price: "",
-    image_url: "",
-    stock: "",
-  });
+const ProductSchema = Yup.object().shape({
+  title: Yup.string().required("Title is required"),
+  description: Yup.string().max(500),
+  price: Yup.number().required("Price is required").min(0),
+  stock: Yup.number().required("Stock is required").min(0).integer(),
+  image_url: Yup.string().url("Must be a valid URL"),
+});
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+const AdminProductForm = ({ product, onClose }) => {
+  const isEdit = !!product;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newProduct = await createProduct({
-      ...formData,
-      price: parseFloat(formData.price),
-      stock: parseInt(formData.stock),
-    });
-    onCreated(newProduct);
-    setFormData({
-      title: "",
-      description: "",
-      price: "",
-      image_url: "",
-      stock: "",
-    });
+  const initialValues = {
+    title: product?.title || "",
+    description: product?.description || "",
+    price: product?.price || "",
+    stock: product?.stock || 0,
+    image_url: product?.image_url || "",
+  };
+
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      if (isEdit) {
+        await updateProduct(product.id, values);
+        alert("Product updated successfully!");
+      } else {
+        await createProduct(values);
+        alert("Product created successfully!");
+      }
+      resetForm();
+      onClose();
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 p-4 border rounded bg-white">
-      <input name="title" placeholder="Title" onChange={handleChange} value={formData.title} className="w-full border p-2" />
-      <textarea name="description" placeholder="Description" onChange={handleChange} value={formData.description} className="w-full border p-2" />
-      <input name="price" placeholder="Price" onChange={handleChange} value={formData.price} className="w-full border p-2" />
-      <input name="image_url" placeholder="Image URL" onChange={handleChange} value={formData.image_url} className="w-full border p-2" />
-      <input name="stock" placeholder="Stock" onChange={handleChange} value={formData.stock} className="w-full border p-2" />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Add Product</button>
-    </form>
+    <div className="my-6 p-6 border rounded bg-white shadow max-w-xl mx-auto">
+      <h3 className="text-xl font-semibold mb-4">
+        {isEdit ? "Edit Product" : "Add New Product"}
+      </h3>
+
+      <Formik
+        initialValues={initialValues}
+        validationSchema={ProductSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting }) => (
+          <Form className="space-y-4">
+            <div>
+              <label className="block">Title</label>
+              <Field name="title" className="w-full p-2 border rounded" />
+              <ErrorMessage name="title" component="div" className="text-red-500" />
+            </div>
+
+            <div>
+              <label className="block">Description</label>
+              <Field
+                name="description"
+                as="textarea"
+                className="w-full p-2 border rounded"
+              />
+              <ErrorMessage name="description" component="div" className="text-red-500" />
+            </div>
+
+            <div className="flex gap-4">
+              <div className="flex-1">
+                <label className="block">Price</label>
+                <Field name="price" type="number" className="w-full p-2 border rounded" />
+                <ErrorMessage name="price" component="div" className="text-red-500" />
+              </div>
+
+              <div className="flex-1">
+                <label className="block">Stock</label>
+                <Field name="stock" type="number" className="w-full p-2 border rounded" />
+                <ErrorMessage name="stock" component="div" className="text-red-500" />
+              </div>
+            </div>
+
+            <div>
+              <label className="block">Image URL</label>
+              <Field name="image_url" className="w-full p-2 border rounded" />
+              <ErrorMessage name="image_url" component="div" className="text-red-500" />
+            </div>
+
+            <div className="flex gap-4 justify-end">
+              <button
+                type="button"
+                onClick={onClose}
+                className="bg-gray-400 text-white px-4 py-2 rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-blue-600 text-white px-4 py-2 rounded"
+              >
+                {isEdit ? "Update" : "Create"}
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 };
 
