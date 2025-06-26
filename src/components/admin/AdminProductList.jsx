@@ -1,33 +1,38 @@
-import { useEffect, useState } from "react";
-import { fetchProducts, deleteProduct } from "../../api/products";
-
-const AdminProductList = () => {
-  const [products, setProducts] = useState([]);
-
-  const load = async () => {
-    const data = await fetchProducts();
-    setProducts(data);
-  };
-
-  useEffect(() => {
-    load();
-  }, []);
-
-  const handleDelete = async (id) => {
-    await deleteProduct(id);
-    load();
-  };
-
+const AdminProductList = ({ products, onEdit, onDelete }) => {
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">All Products</h2>
-      {products.map((p) => (
-        <div key={p.id} className="border p-3 rounded mb-2 flex justify-between items-center">
-          <span>{p.title}</span>
-          <button onClick={() => handleDelete(p.id)} className="text-red-600">Delete</button>
-        </div>
-      ))}
-    </div>
+    <table className="w-full border-collapse bg-white shadow">
+      <thead className="bg-gray-100">
+        <tr>
+          <th className="border px-4 py-2">Title</th>
+          <th className="border px-4 py-2">Price</th>
+          <th className="border px-4 py-2">Stock</th>
+          <th className="border px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {products.map((product) => (
+          <tr key={product.id}>
+            <td className="border px-4 py-2">{product.title}</td>
+            <td className="border px-4 py-2">Ksh {product.price}</td>
+            <td className="border px-4 py-2">{product.stock}</td>
+            <td className="border px-4 py-2 space-x-2">
+              <button
+                onClick={() => onEdit(product)}
+                className="bg-blue-500 text-white px-3 py-1 rounded"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => onDelete(product.id)}
+                className="bg-red-500 text-white px-3 py-1 rounded"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 
