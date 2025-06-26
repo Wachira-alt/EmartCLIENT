@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "backend": "cd ../EmartAPI && pipenv run flask run",
+    "backend": "cd ../EmartBackend && pipenv run flask run",
     "fullstack": "concurrently \"npm run dev\" \"npm run backend\""
   },
   "dependencies": {
