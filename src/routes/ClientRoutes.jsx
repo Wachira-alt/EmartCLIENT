@@ -9,6 +9,10 @@ import ProfilePage from "../pages/user/ProfilePage";
 import ProductList from "../pages/user/ProductList";
 import CheckoutPage from "../pages/user/CheckoutPage";
 import OrderSuccess from "../pages/user/OrderSuccess";
+import UserOrdersPage from "../pages/user/UserOrdersPage";
+
+<Route path="/my-orders" element={<UserOrdersPage />} />
+
 
 import Login from "../pages/user/Login";
 import Register from "../pages/user/Register";
@@ -27,6 +31,7 @@ export default function ClientRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/my-orders" element={<UserOrdersPage />} />
      
       <Route path="/products" element={<ProductList />} />
    

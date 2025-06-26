@@ -21,5 +21,11 @@ export const updateOrderStatus = async (orderId, status) => {
   const res = await axiosInstance.patch(`/orders/${orderId}/status`, { status });
   return res.data;
 };
+// USER — Get their own orders
+export const fetchUserOrders = async () => {
+  const res = await axiosInstance.get("/orders/me");
+  return res.data;
+};
+
 
 
