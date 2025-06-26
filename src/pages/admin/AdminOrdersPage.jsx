@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchAllOrders, cancelOrder } from "../../api/orders";
+import { fetchAllOrders, cancelOrder, updateOrderStatus } from "../../api/orders";
 
 const AdminOrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -24,6 +24,11 @@ const AdminOrdersPage = () => {
     }
   };
 
+  const handleStatusChange = async (orderId, newStatus) => {
+    await updateOrderStatus(orderId, newStatus);
+    loadOrders();
+  };
+
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">All Orders</h2>
@@ -37,21 +42,47 @@ const AdminOrdersPage = () => {
               key={order.id}
               className="border p-4 rounded bg-white shadow-sm"
             >
-              <div className="flex justify-between mb-2">
+              <div className="flex justify-between mb-2 items-center">
                 <div>
                   <p className="font-semibold">
-                    Order #{order.id} - {order.status}
+                    Order #{order.id}
                   </p>
                   <p className="text-sm text-gray-600">
                     {new Date(order.created_at).toLocaleString()}
                   </p>
+                  <p className="text-sm text-gray-700">
+                    User ID: {order.user_id}
+                  </p>
                 </div>
-                <div>
-                  <p className="text-sm">User ID: {order.user_id}</p>
+
+                <div className="flex items-center space-x-3">
+                  <label className="text-sm mr-1">Status:</label>
+                  <select
+                    value={order.status}
+                    onChange={(e) =>
+                      handleStatusChange(order.id, e.target.value)
+                    }
+                    className="border px-2 py-1 rounded"
+                  >
+                    {["pending", "processing", "shipped", "delivered", "cancelled"].map((status) => (
+                      <option key={status} value={status}>
+                        {status}
+                      </option>
+                    ))}
+                  </select>
+
+                  {order.status !== "cancelled" && (
+                    <button
+                      onClick={() => handleCancel(order.id)}
+                      className="text-sm bg-red-600 text-white px-3 py-1 rounded"
+                    >
+                      Cancel
+                    </button>
+                  )}
                 </div>
               </div>
 
-              <table className="w-full text-sm mb-4">
+              <table className="w-full text-sm mt-3">
                 <thead>
                   <tr className="text-left border-b">
                     <th>Product</th>
@@ -73,15 +104,6 @@ const AdminOrdersPage = () => {
                   ))}
                 </tbody>
               </table>
-
-              {order.status !== "cancelled" && (
-                <button
-                  onClick={() => handleCancel(order.id)}
-                  className="text-sm bg-red-600 text-white px-3 py-1 rounded"
-                >
-                  Cancel Order
-                </button>
-              )}
             </div>
           ))}
         </div>
