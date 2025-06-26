@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 import AdminPanel from "../pages/admin/AdminPanel";
 import AdminProductListPage from "../pages/admin/AdminProductListPage";
 import AdminOrdersPage from "../pages/admin/AdminOrdersPage";
+import AdminUsersPage from "../pages/admin/AdminUsersPage";
 
 const AdminRoutes = () => {
   const { user } = useContext(AuthContext);
@@ -19,6 +20,7 @@ const AdminRoutes = () => {
       <Route path="/" element={<AdminPanel />} />
       <Route path="/products" element={<AdminProductListPage />} />
       <Route path="/orders" element={<AdminOrdersPage />} />
+      <Route path="/users" element={<AdminUsersPage />} />
     </Routes>
   );
 };
