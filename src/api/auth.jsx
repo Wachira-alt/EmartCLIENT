@@ -29,3 +29,19 @@ export const fetchProfile = async () => {
     return { ok: false, error: err.response?.data?.error || "Profile fetch failed" };
   }
 };
+
+// ADMIN — Fetch all users
+export const fetchAllUsers = async () => {
+  const res = await api.get("/users");
+  return res.data;
+};
+// ADMIN — Promote user to admin
+export const promoteUser = async (userId) => {
+  const res = await api.patch(`/users/${userId}/promote`);
+  return res.data;
+};
+
+// ADMIN — Delete user
+export const deleteUser = async (userId) => {
+  await api.delete(`/users/${userId}`);
+};

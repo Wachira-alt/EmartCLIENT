@@ -11,3 +11,9 @@ export const fetchAllOrders = async () => {
   const res = await axiosInstance.get("/orders");
   return res.data;
 };
+// ADMIN — Cancel order
+export const cancelOrder = async (orderId) => {
+  const res = await axiosInstance.patch(`/orders/${orderId}/cancel`);
+  return res.data;
+};
+
