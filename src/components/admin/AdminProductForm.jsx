@@ -37,23 +37,22 @@ const AdminProductForm = ({ product, onClose }) => {
       image_url: product?.image_url || "",
     },
   });
-
+// promise toast
   const onSubmit = async (values) => {
-  try {
-    if (isEdit) {
-      await updateProduct(product.id, values);
-      toast.success("Product updated successfully");
-    } else {
-      await createProduct(values);
-      toast.success("Product created successfully");
-    }
-    reset();
-    onClose();
-  } catch (err) {
-    console.error(err);
-    toast.error("❌ Something went wrong");
-  }
+  const action = isEdit
+    ? updateProduct(product.id, values)
+    : createProduct(values);
+
+  await toast.promise(action, {
+    loading: isEdit ? "Updating product..." : "Creating product...",
+    success: isEdit ? "✅ Product updated!" : "✅ Product created!",
+    error: "❌ Failed to save product",
+  });
+
+  reset();
+  onClose();
 };
+
 
 
   return (
