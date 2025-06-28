@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "backend": "cd ../EmartBackend && pipenv run flask run",
+    "backend": "cd ../EmartAPI && pipenv run flask run",
     "fullstack": "concurrently \"npm run dev\" \"npm run backend\""
   },
   "dependencies": {
@@ -17,7 +17,10 @@
     "formik": "^2.4.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+
+
     "react-router-dom": "^7.6.2",
+
     "tailwindcss": "^4.1.10",
     "yup": "^1.6.1"
   },
