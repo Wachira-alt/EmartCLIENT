@@ -1,62 +1,74 @@
-import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { Button } from "@/components/ui/button";
+import FormField from "@/components/ui/form-field";
+
+// 1. Zod schema
+const registerSchema = z.object({
+  username: z
+    .string()
+    .min(3, "Username too short")
+    .max(20, "Username too long"),
+  email: z.string().email("Invalid email"),
+  password: z
+    .string()
+    .min(8, "At least 8 characters")
+    .regex(/[A-Z]/, "Must contain one uppercase letter")
+    .regex(/[a-z]/, "Must contain one lowercase letter")
+    .regex(/[0-9]/, "Must contain one number")
+    .regex(/[@$!%*?&]/, "Must contain one special character"),
+});
 
 const RegisterForm = () => {
-  const { register } = useContext(AuthContext);
+  const { register: registerUser } = useContext(AuthContext);
 
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { isSubmitting },
+  } = useForm({
+    resolver: zodResolver(registerSchema),
   });
 
-  const [error, setError] = useState("");
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await register(form.username, form.email, form.password);
+  const onSubmit = async (data) => {
+    const res = await registerUser(data.username, data.email, data.password);
     if (!res.success) {
-      setError(res.error || "Registration failed");
+      setError("password", { message: res.error || "Registration failed" });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <input
-        type="text"
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto space-y-4">
+      <FormField
         name="username"
-        placeholder="Username"
-        value={form.username}
-        onChange={handleChange}
-        className="border p-2 w-full"
-        required
+        label="Username"
+        placeholder="johndoe"
+        control={control}
       />
-      <input
-        type="email"
+
+      <FormField
         name="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-        className="border p-2 w-full"
-        required
+        type="email"
+        label="Email"
+        placeholder="you@example.com"
+        control={control}
       />
-      <input
-        type="password"
+
+      <FormField
         name="password"
-        placeholder="Password"
-        value={form.password}
-        onChange={handleChange}
-        className="border p-2 w-full"
-        required
+        type="password"
+        label="Password"
+        placeholder="Strong password"
+        control={control}
       />
-      {error && <p className="text-red-600">{error}</p>}
-      <button className="bg-[#6F4E37] text-white px-4 py-2 rounded shadow">
-        Register
-      </button>
+
+      <Button type="submit" className="w-full" disabled={isSubmitting}>
+        {isSubmitting ? "Registering..." : "Register"}
+      </Button>
     </form>
   );
 };

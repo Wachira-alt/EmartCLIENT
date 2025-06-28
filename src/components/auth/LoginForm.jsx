@@ -1,40 +1,56 @@
-import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import FormField from "@/components/ui/form-field";
 import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z.string().min(6, "Password too short"),
+});
 
 const LoginForm = () => {
   const { login } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await login(email, password);
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { isSubmitting },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data) => {
+    const res = await login(data.email, data.password);
     if (!res.success) {
-      setError(res.error);
+      setError("password", { message: res.error });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <input
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto space-y-4">
+      <FormField
+        name="email"
+        label="Email"
         type="email"
-        value={email}
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-        className="border p-2 w-full"
+        placeholder="you@example.com"
+        control={control}
       />
-      <input
+      <FormField
+        name="password"
+        label="Password"
         type="password"
-        value={password}
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-        className="border p-2 w-full"
+        placeholder="••••••••"
+        control={control}
       />
-      {error && <p className="text-red-600">{error}</p>}
-      <button className="bg-blue-600 text-white px-4 py-2">Login</button>
+      <Button type="submit" className="w-full" disabled={isSubmitting}>
+        {isSubmitting ? "Logging in..." : "Login"}
+      </Button>
     </form>
   );
 };
-export default LoginForm;
 
+export default LoginForm;
