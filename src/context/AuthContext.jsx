@@ -21,17 +21,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Register new user and auto-login
-  const register = async (username, email, password) => {
-    const { ok, data } = await registerUser(username, email, password);
-    if (ok) {
-      localStorage.setItem("token", data.access_token);
-      await fetchUser();
-      return { success: true };
-    } else {
-      return { success: false, error: data.error };
-    }
-  };
+const register = async ({ username, email, password }) => {
+  const { ok, data } = await registerUser(username, email, password);
+  if (ok) {
+    localStorage.setItem("token", data.access_token);
+    await fetchUser();
+    return { success: true };
+  } else {
+    return { success: false, error: data.error };
+  }
+};
+
 
   // Login user
   const login = async (email, password) => {

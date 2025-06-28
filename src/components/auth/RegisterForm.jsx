@@ -6,6 +6,8 @@ import { AuthContext } from "../../context/AuthContext";
 import { Button } from "@/components/ui/button";
 import FormField from "@/components/ui/form-field";
 import { Mail, Lock, User} from "lucide-react";
+import { toast } from "sonner";
+
 
 // 1. Zod schema
 const registerSchema = z.object({
@@ -36,11 +38,21 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (data) => {
-    const res = await registerUser(data.username, data.email, data.password);
-    if (!res.success) {
-      setError("password", { message: res.error || "Registration failed" });
+  await toast.promise(
+    registerUser(data), // use correct function
+    {
+      loading: "Creating account...",
+      success: "Account created! 🎉",
+      error: (err) => {
+        if (err?.field && err?.error) {
+          setError(err.field, { message: err.error }); // optional field error
+        }
+        return err?.error || "Registration failed";
+      },
     }
-  };
+  );
+};
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto space-y-4">

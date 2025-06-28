@@ -6,6 +6,7 @@ import FormField from "@/components/ui/form-field";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { Mail, Lock } from "lucide-react";
+import { toast } from "sonner";
 
 
 const loginSchema = z.object({
@@ -19,18 +20,23 @@ const LoginForm = () => {
   const {
     control,
     handleSubmit,
-    setError,
+    // setError,
     formState: { isSubmitting },
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data) => {
-    const res = await login(data.email, data.password);
-    if (!res.success) {
-      setError("password", { message: res.error });
+  await toast.promise(
+    login(data.email, data.password),
+    {
+      loading: "Logging in...",
+      success: "Welcome back!",
+      error: (err) => err?.error || "Invalid login",
     }
-  };
+  );
+};
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto space-y-4">

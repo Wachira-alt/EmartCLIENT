@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import FormField from "@/components/ui/form-field";
 import { createProduct, updateProduct } from "../../api/products";
 import { FolderPen, Warehouse, Image, AlignLeft  } from "lucide-react";
+import { toast } from "sonner";
+
 
 const productSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -37,21 +39,22 @@ const AdminProductForm = ({ product, onClose }) => {
   });
 
   const onSubmit = async (values) => {
-    try {
-      if (isEdit) {
-        await updateProduct(product.id, values);
-        alert("Product updated successfully!");
-      } else {
-        await createProduct(values);
-        alert("Product created successfully!");
-      }
-      reset();
-      onClose();
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong.");
+  try {
+    if (isEdit) {
+      await updateProduct(product.id, values);
+      toast.success("Product updated successfully");
+    } else {
+      await createProduct(values);
+      toast.success("Product created successfully");
     }
-  };
+    reset();
+    onClose();
+  } catch (err) {
+    console.error(err);
+    toast.error("❌ Something went wrong");
+  }
+};
+
 
   return (
     <div className="my-6 p-6 border rounded bg-white shadow max-w-xl mx-auto">
