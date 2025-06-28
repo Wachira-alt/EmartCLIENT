@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import FormField from "@/components/ui/form-field";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
+import { Mail, Lock } from "lucide-react";
+
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -38,6 +40,7 @@ const LoginForm = () => {
         type="email"
         placeholder="you@example.com"
         control={control}
+        icon={Mail}
       />
       <FormField
         name="password"
@@ -45,6 +48,7 @@ const LoginForm = () => {
         type="password"
         placeholder="••••••••"
         control={control}
+        icon={Lock}
       />
       <Button type="submit" className="w-full" disabled={isSubmitting}>
         {isSubmitting ? "Logging in..." : "Login"}

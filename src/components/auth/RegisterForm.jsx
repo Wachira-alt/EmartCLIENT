@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Button } from "@/components/ui/button";
 import FormField from "@/components/ui/form-field";
+import { Mail, Lock, User} from "lucide-react";
 
 // 1. Zod schema
 const registerSchema = z.object({
@@ -48,6 +49,7 @@ const RegisterForm = () => {
         label="Username"
         placeholder="johndoe"
         control={control}
+        icon={User}
       />
 
       <FormField
@@ -56,6 +58,7 @@ const RegisterForm = () => {
         label="Email"
         placeholder="you@example.com"
         control={control}
+        icon={Mail}
       />
 
       <FormField
@@ -64,6 +67,7 @@ const RegisterForm = () => {
         label="Password"
         placeholder="Strong password"
         control={control}
+        icon={Lock}
       />
 
       <Button type="submit" className="w-full" disabled={isSubmitting}>

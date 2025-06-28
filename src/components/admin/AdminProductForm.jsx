@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import FormField from "@/components/ui/form-field";
 import { createProduct, updateProduct } from "../../api/products";
+import { FolderPen, Warehouse, Image, AlignLeft  } from "lucide-react";
 
 const productSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -64,6 +65,7 @@ const AdminProductForm = ({ product, onClose }) => {
           label="Title"
           placeholder="Enter title"
           control={control}
+           icon={FolderPen}
         />
 
         <div className="space-y-1">
@@ -73,12 +75,14 @@ const AdminProductForm = ({ product, onClose }) => {
           <Controller
             name="description"
             control={control}
+            icon={AlignLeft}
             render={({ field }) => (
               <Textarea
                 id="description"
                 placeholder="Enter description (optional)"
                 {...field}
               />
+            
             )}
           />
           {errors.description && (
@@ -100,6 +104,7 @@ const AdminProductForm = ({ product, onClose }) => {
             type="number"
             placeholder="0"
             control={control}
+            icon={Warehouse}
           />
         </div>
 
@@ -108,6 +113,7 @@ const AdminProductForm = ({ product, onClose }) => {
           label="Image URL"
           placeholder="https://example.com/image.jpg"
           control={control}
+          icon={Image}
         />
 
         <div className="flex gap-4 justify-end">
