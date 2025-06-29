@@ -53,7 +53,7 @@ export default function Navbar() {
               )}
               <NavLink to="/profile" className={navLink}>Profile</NavLink>
               <NavLink to="/my-orders" className={navLink}>My Orders</NavLink>
-              <NavLink to="/checkout" className={navLink}>Checkout</NavLink>
+              {/* <NavLink to="/checkout" className={navLink}>Checkout</NavLink> */}
               <button
                 onClick={logout}
                 className="text-xs text-[#6F4E37] hover:text-red-500 transition"
