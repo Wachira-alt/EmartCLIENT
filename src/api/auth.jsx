@@ -45,3 +45,22 @@ export const promoteUser = async (userId) => {
 export const deleteUser = async (userId) => {
   await api.delete(`/users/${userId}`);
 };
+
+//updating user profile
+
+export async function updateUserProfile(data) {
+  const res = await fetch("/api/profile", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw await res.json();
+  }
+
+  return await res.json();
+}
