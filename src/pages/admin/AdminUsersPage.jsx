@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchAllUsers, promoteUser, deleteUser } from "../../api/auth";
 import AdminLayout from "../../components/admin/AdminLayout";
+import AdminUserRow from "../../components/admin/AdminUserRow";
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -19,86 +20,49 @@ const AdminUsersPage = () => {
   };
 
   const handlePromote = async (userId) => {
-    try {
-      await promoteUser(userId);
-      loadUsers(); // refresh
-    } catch (err) {
-      alert("Promotion failed.");
-      console.error(err);
-    }
+    await promoteUser(userId);
+    loadUsers();
   };
 
   const handleDelete = async (userId) => {
-    const confirm = window.confirm("Are you sure you want to delete this user?");
-    if (!confirm) return;
-
-    try {
-      await deleteUser(userId);
-      loadUsers(); // refresh
-    } catch (err) {
-      alert("Deletion failed.");
-      console.error(err);
-    }
+    await deleteUser(userId);
+    loadUsers();
   };
 
   return (
-   <AdminLayout>
-     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">All Users</h2>
+    <AdminLayout>
+      <div className="p-6">
+        <h2 className="text-2xl font-bold mb-4">All Users</h2>
 
-      {users.length === 0 ? (
-        <p>No users found.</p>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full border border-gray-300">
-            <thead className="bg-gray-100 text-sm text-left">
-              <tr>
-                <th className="py-2 px-4 border-b">ID</th>
-                <th className="py-2 px-4 border-b">Username</th>
-                <th className="py-2 px-4 border-b">Email</th>
-                <th className="py-2 px-4 border-b">Role</th>
-                <th className="py-2 px-4 border-b">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="text-sm">
-              {users.map((user) => (
-                <tr key={user.id} className="border-t">
-                  <td className="py-2 px-4">{user.id}</td>
-                  <td className="py-2 px-4">{user.username}</td>
-                  <td className="py-2 px-4">{user.email}</td>
-                  <td className="py-2 px-4">
-                    <span
-                      className={`px-2 py-1 rounded text-white text-xs ${
-                        user.role === "admin" ? "bg-green-600" : "bg-gray-600"
-                      }`}
-                    >
-                      {user.role}
-                    </span>
-                  </td>
-                  <td className="py-2 px-4 space-x-2">
-                    {user.role !== "admin" && (
-                      <button
-                        onClick={() => handlePromote(user.id)}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs"
-                      >
-                        Promote
-                      </button>
-                    )}
-                    <button
-                      onClick={() => handleDelete(user.id)}
-                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs"
-                    >
-                      Delete
-                    </button>
-                  </td>
+        {users.length === 0 ? (
+          <p>No users found.</p>
+        ) : (
+          <div className="overflow-x-auto border rounded-md">
+            <table className="min-w-full text-sm">
+              <thead className="bg-muted text-left">
+                <tr>
+                  <th className="py-2 px-4">ID</th>
+                  <th className="py-2 px-4">Username</th>
+                  <th className="py-2 px-4">Email</th>
+                  <th className="py-2 px-4">Role</th>
+                  <th className="py-2 px-4">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </div>
-   </AdminLayout>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <AdminUserRow
+                    key={user.id}
+                    user={user}
+                    onPromote={handlePromote}
+                    onDelete={handleDelete}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </AdminLayout>
   );
 };
 
