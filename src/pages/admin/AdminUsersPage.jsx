@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchAllUsers, promoteUser, deleteUser } from "../../api/auth";
+import AdminLayout from "../../components/admin/AdminLayout";
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -41,7 +42,8 @@ const AdminUsersPage = () => {
   };
 
   return (
-    <div className="p-6">
+   <AdminLayout>
+     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">All Users</h2>
 
       {users.length === 0 ? (
@@ -96,6 +98,7 @@ const AdminUsersPage = () => {
         </div>
       )}
     </div>
+   </AdminLayout>
   );
 };
 

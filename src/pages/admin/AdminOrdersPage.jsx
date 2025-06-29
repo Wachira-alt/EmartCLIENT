@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchAllOrders, cancelOrder, updateOrderStatus } from "../../api/orders";
+import AdminLayout from "../../components/admin/AdminLayout";
 
 const AdminOrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -30,7 +31,8 @@ const AdminOrdersPage = () => {
   };
 
   return (
-    <div className="p-6">
+    <AdminLayout>
+      <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">All Orders</h2>
 
       {orders.length === 0 ? (
@@ -109,6 +111,7 @@ const AdminOrdersPage = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

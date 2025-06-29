@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchProducts, deleteProduct } from "../../api/products";
 import AdminProductList from "../../components/admin/AdminProductList";
 import AdminProductForm from "../../components/admin/AdminProductForm";
+import AdminLayout from "../../components/admin/AdminLayout";
 
 const AdminProductListPage = () => {
   const [products, setProducts] = useState([]);
@@ -35,7 +36,8 @@ const AdminProductListPage = () => {
   };
 
   return (
-    <div className="p-6">
+    <AdminLayout>
+      <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Manage Products</h2>
         <button
@@ -55,6 +57,7 @@ const AdminProductListPage = () => {
         <AdminProductForm product={editingProduct} onClose={handleFormClose} />
       )}
     </div>
+    </AdminLayout>
   );
 };
 
