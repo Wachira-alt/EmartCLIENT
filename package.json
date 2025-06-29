@@ -7,9 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "backend": "cd ../EmartAPI && pipenv run flask run",
-    "fullstack": "concurrently \"npm run dev\" \"npm run backend\""
+    "preview": "vite preview"
+    
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
