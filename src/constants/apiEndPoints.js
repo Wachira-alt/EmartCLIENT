@@ -1,4 +1,4 @@
-export const BASE_URL = "postgresql://postgres.avxrfzhodicbjgkflglr:invictus@aws-0-eu-central-1.pooler.supabase.com:6543/postgres";
+export const BASE_URL = "http://localhost:5000/api";
 
 
 // npm install concurrently --save-dev
