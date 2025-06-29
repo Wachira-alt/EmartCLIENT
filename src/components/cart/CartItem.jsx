@@ -1,36 +1,45 @@
-// Reusable UI for one cart item
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const CartItem = ({ item }) => {
   const { updateCartItem, removeFromCart } = useContext(CartContext);
 
   const handleQuantityChange = (e) => {
-    updateCartItem(item.id, parseInt(e.target.value));
+    const qty = parseInt(e.target.value);
+    if (qty > 0) updateCartItem(item.id, qty);
   };
 
   return (
-    <div className="border p-3 flex justify-between items-center bg-white rounded mb-2">
-      <div>
-        <h4 className="font-bold">{item.product.title}</h4>
-        <p>Ksh {item.product.price} x {item.quantity}</p>
-      </div>
-      <div className="flex items-center gap-3">
-        <input
-          type="number"
-          value={item.quantity}
-          onChange={handleQuantityChange}
-          min="1"
-          className="w-16 border p-1"
-        />
-        <button
-          onClick={() => removeFromCart(item.id)}
-          className="text-red-600"
-        >
-          Remove
-        </button>
-      </div>
-    </div>
+    <Card>
+      <CardContent className="flex justify-between items-center py-4">
+        <div>
+          <h4 className="font-semibold">{item.product.title}</h4>
+          <p className="text-sm text-muted-foreground">
+            Ksh {item.product.price.toFixed(2)} × {item.quantity}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={item.quantity}
+            onChange={handleQuantityChange}
+            min={1}
+            className="w-16"
+          />
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => removeFromCart(item.id)}
+          >
+            Remove
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
