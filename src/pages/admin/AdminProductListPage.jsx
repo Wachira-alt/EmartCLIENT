@@ -8,6 +8,7 @@ import AdminProductForm from "../../components/admin/AdminProductForm";
 import AdminLayout from "../../components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 
+
 const AdminProductListPage = () => {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
