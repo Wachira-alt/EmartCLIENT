@@ -14,29 +14,37 @@ export default function Navbar() {
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const baseLink =
-    "relative text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-150 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 hover:after:w-full after:bg-blue-600 after:transition-all after:duration-300";
+    "relative text-sm font-medium text-[#3B3A36] hover:text-[#1C6DD0] transition duration-150 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 hover:after:w-full after:bg-[#1C6DD0] after:transition-all after:duration-300";
 
   return (
-    <nav className="bg-white/80 backdrop-blur-md shadow-md border-b border-[#E7E0CE] sticky top-0 z-50 font-body rounded-b-xl">
+    <nav className="bg-[#FDF6EC]/90 backdrop-blur-md shadow-md border-b border-[#E7E0CE] sticky top-0 z-50 font-body rounded-b-xl">
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
 
         {/* Brand */}
         <Link
           to="/"
-          className="text-2xl tracking-tight font-display text-blue-600"
+          className="text-2xl tracking-tight font-display text-[#1C6DD0]"
         >
-          elimu<span className="text-gray-700 font-body">emart</span>
+          elimu<span className="text-[#3B3A36] font-body">emart</span>
         </Link>
 
         {/* Navigation */}
         <div className="flex gap-6 items-center">
-
-          {/* Highlight current page */}
-          <NavLink to="/" className={({ isActive }) => `${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`}>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `${baseLink} ${isActive ? "text-[#1C6DD0] after:w-full" : ""}`
+            }
+          >
             Home
           </NavLink>
 
-          <NavLink to="/products" className={({ isActive }) => `${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`}>
+          <NavLink
+            to="/products"
+            className={({ isActive }) =>
+              `${baseLink} ${isActive ? "text-[#1C6DD0] after:w-full" : ""}`
+            }
+          >
             Products
           </NavLink>
 
@@ -44,7 +52,7 @@ export default function Navbar() {
           <NavLink
             to="/cart"
             className={({ isActive }) =>
-              `relative flex items-center gap-1 ${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`
+              `relative flex items-center gap-1 ${baseLink} ${isActive ? "text-[#1C6DD0] after:w-full" : ""}`
             }
           >
             <ShoppingCart size={18} />
@@ -52,7 +60,7 @@ export default function Navbar() {
             {cartCount > 0 && (
               <Badge
                 variant="secondary"
-                className="absolute -top-2 -right-3 text-[10px] px-1 py-0.5"
+                className="absolute -top-2 -right-3 text-[10px] px-1 py-0.5 bg-[#D4A373] text-white"
               >
                 {cartCount}
               </Badge>
@@ -67,29 +75,44 @@ export default function Navbar() {
                   size="sm"
                   variant="outline"
                   onClick={() => navigate("/admin")}
-                  className="text-sm"
+                  className="text-sm border-[#D4A373] text-[#3B3A36] hover:bg-[#D4A373]/10"
                 >
                   Admin
                 </Button>
               )}
-              <NavLink to="/profile" className={({ isActive }) => `${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`}>
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  `${baseLink} ${isActive ? "text-[#1C6DD0] after:w-full" : ""}`
+                }
+              >
                 Profile
               </NavLink>
-              <NavLink to="/my-orders" className={({ isActive }) => `${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`}>
+              <NavLink
+                to="/my-orders"
+                className={({ isActive }) =>
+                  `${baseLink} ${isActive ? "text-[#1C6DD0] after:w-full" : ""}`
+                }
+              >
                 Orders
               </NavLink>
               <Button
                 size="sm"
                 variant="ghost"
                 onClick={logout}
-                className="flex items-center text-gray-600 hover:text-red-500"
+                className="flex items-center text-[#3B3A36] hover:text-red-500"
               >
                 <LogOut size={16} className="mr-1" />
                 Logout
               </Button>
             </>
           ) : (
-            <NavLink to="/login" className={({ isActive }) => `${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`}>
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                `${baseLink} ${isActive ? "text-[#1C6DD0] after:w-full" : ""}`
+              }
+            >
               Login
             </NavLink>
           )}
