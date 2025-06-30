@@ -5,33 +5,34 @@ import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#3B3A36] text-[#F5F3EA] pt-12 pb-6 px-6 font-body">
+    <footer className="bg-[#1C1C1C] text-[#f5f5f5] pt-12 pb-6 px-6 font-body">
       <div className="max-w-6xl mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+
         {/* Brand Info */}
         <div>
-          <h3 className="text-xl font-bold mb-3 font-display text-[#F5F3EA]">
-            elimu<span className="text-[#D6CBB6]">emart</span>
+          <h3 className="text-2xl font-bold mb-3 font-display text-[#F4A261]">
+            elimu<span className="text-white">emart</span>
           </h3>
-          <p className="text-sm text-[#D6CBB6]">
+          <p className="text-sm text-gray-300">
             Your trusted partner for premium, customizable stationery in Kenya.
           </p>
         </div>
 
         {/* Quick Links */}
         <div>
-          <h4 className="font-semibold mb-2 text-[#F5F3EA]">Quick Links</h4>
-          <ul className="space-y-1 text-sm text-[#D6CBB6]">
-            <li><Link to="/" className="hover:underline">Home</Link></li>
-            <li><Link to="/products" className="hover:underline">Products</Link></li>
-            <li><Link to="/login" className="hover:underline">Login</Link></li>
-            <li><Link to="/register" className="hover:underline">Register</Link></li>
+          <h4 className="font-semibold mb-2 text-white">Quick Links</h4>
+          <ul className="space-y-1 text-sm text-gray-300">
+            <li><Link to="/" className="hover:text-[#F4A261] transition">Home</Link></li>
+            <li><Link to="/products" className="hover:text-[#F4A261] transition">Products</Link></li>
+            <li><Link to="/login" className="hover:text-[#F4A261] transition">Login</Link></li>
+            <li><Link to="/register" className="hover:text-[#F4A261] transition">Register</Link></li>
           </ul>
         </div>
 
         {/* Contact Info */}
         <div>
-          <h4 className="font-semibold mb-2 text-[#F5F3EA]">Contact</h4>
-          <ul className="text-sm text-[#D6CBB6] space-y-1">
+          <h4 className="font-semibold mb-2 text-white">Contact</h4>
+          <ul className="text-sm text-gray-300 space-y-1">
             <li className="flex items-center gap-2">
               <Phone size={14} /> +254 712 345 678
             </li>
@@ -46,27 +47,29 @@ const Footer = () => {
 
         {/* Newsletter */}
         <div>
-          <h4 className="font-semibold mb-2 text-[#F5F3EA]">Newsletter</h4>
-          <p className="text-sm text-[#D6CBB6] mb-3">
+          <h4 className="font-semibold mb-2 text-white">Newsletter</h4>
+          <p className="text-sm text-gray-300 mb-3">
             Stay up to date with our latest offers and arrivals.
           </p>
           <form className="flex flex-col sm:flex-row gap-2">
             <Input
               type="email"
               placeholder="Your email"
-              className="text-sm bg-[#F5F3EA] text-black placeholder:text-gray-600"
+              className="text-sm bg-white text-black placeholder:text-gray-600"
             />
-            <Button size="sm" variant="secondary" className="bg-[#D6CBB6] text-[#3B3A36]">
+            <Button
+              size="sm"
+              className="bg-[#F4A261] hover:bg-[#e88a47] text-white transition"
+            >
               Subscribe
             </Button>
           </form>
         </div>
       </div>
 
-      {/* Bottom */}
-      <div className="border-t border-[#D6CBB6] mt-10 pt-4 text-center text-xs text-[#D6CBB6]">
-        &copy; {new Date().getFullYear()} elimu
-        <span className="text-[#F5F3EA]">emart</span>. All rights reserved.
+      {/* Bottom Line */}
+      <div className="border-t border-gray-700 mt-10 pt-4 text-center text-xs text-gray-400">
+        &copy; {new Date().getFullYear()} elimu<span className="text-[#F4A261]">emart</span>. All rights reserved.
       </div>
     </footer>
   );
