@@ -50,7 +50,7 @@ const RegisterForm = () => {
     );
 
     
-    navigate("/login");
+    navigate("/");
   };
 
   return (
