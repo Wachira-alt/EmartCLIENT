@@ -23,7 +23,7 @@ const Home = () => {
               to="/products"
               className="inline-block bg-[#F4A261] hover:bg-[#e99658] text-white px-6 py-3 rounded-lg shadow-md font-semibold text-sm transition"
             >
-              🛍️ Shop Now
+               Shop Now
             </Link>
           </div>
 
@@ -41,7 +41,7 @@ const Home = () => {
         >
           <path
             fill="#ffffff"
-            d="M0,224L40,197.3C80,171,160,117,240,112C320,107,400,149,480,165.3C560,181,640,171,720,165.3C800,160,880,160,960,144C1040,128,1120,96,1200,101.3C1280,107,1360,149,1400,170.7L1440,192V320H0Z"
+            d="https://unsplash.com/photos/assorted-color-pencil-lot-pSz3JFTDZMA"
           />
         </svg>
       </section>
