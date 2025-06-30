@@ -7,32 +7,33 @@ import { Button } from "@/components/ui/button";
 const Home = () => {
   return (
     <main className="font-body">
-      {/* HERO */}
-      <section className="bg-gradient-to-br from-[#F5F3EA] to-white pt-20 pb-32 px-6 relative overflow-hidden">
+
+      {/* HERO SECTION */}
+      <section className="bg-gradient-to-br from-[#FDF6EC] to-white pt-24 pb-40 px-6 relative overflow-hidden">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 items-center gap-12">
-          {/* Text */}
+          {/* Left Text */}
           <div>
-            <h1 className="text-4xl sm:text-5xl font-display font-bold text-[#3B3A36] leading-tight mb-4">
+            <h1 className="text-5xl font-bold font-display text-[#1C6DD0] leading-tight mb-4 drop-shadow-sm">
               Customize Your Stationery with Style
             </h1>
-            <p className="text-[#6F4E37] text-lg sm:text-xl mb-6">
-              Explore our premium notebooks, pens, and planners — all customizable for your personal or business needs.
+            <p className="text-[#3B3A36] text-lg sm:text-xl mb-6">
+              Premium notebooks, pens, and planners tailored for your school, office, or gifting needs.
             </p>
             <Link
               to="/products"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded shadow font-semibold text-sm"
+              className="inline-block bg-[#1C6DD0] hover:bg-[#175bbd] text-white px-6 py-3 rounded-lg shadow-md font-semibold text-sm transition"
             >
-              Shop Now
+              🛍️ Shop Now
             </Link>
           </div>
 
-          {/* Image */}
+          {/* Right Image */}
           <div className="hidden md:block">
-            <img src="/hero-stationery.svg" alt="Stationery" className="w-full max-w-md" />
+            <img src="/hero-stationery.svg" alt="Stationery" className="w-full max-w-md drop-shadow-md" />
           </div>
         </div>
 
-        {/* Decorative SVG Bottom */}
+        {/* SVG Separator */}
         <svg
           className="absolute bottom-0 left-0 w-full h-40"
           viewBox="0 0 1440 320"
@@ -46,31 +47,31 @@ const Home = () => {
       </section>
 
       {/* FEATURES */}
-      <section className="bg-white py-16 px-6">
+      <section className="bg-white py-20 px-6">
         <div className="max-w-6xl mx-auto grid sm:grid-cols-3 gap-6">
           <Feature
-            icon={<PenTool size={28} className="text-blue-600" />}
+            icon={<PenTool size={28} className="text-[#1C6DD0]" />}
             title="Custom Engraving"
-            description="Names, logos, and styles that reflect your personality."
+            description="Add your name, logo, or message to any product."
           />
           <Feature
-            icon={<Truck size={28} className="text-blue-600" />}
+            icon={<Truck size={28} className="text-[#1C6DD0]" />}
             title="Fast Delivery"
             description="Nationwide shipping in 2–5 business days."
           />
           <Feature
             icon={<Leaf size={28} className="text-green-600" />}
-            title="Eco Materials"
-            description="All products use sustainable, recyclable materials."
+            title="Eco-Friendly"
+            description="We use sustainable materials and recyclable packaging."
           />
         </div>
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="bg-[#F9F9F6] py-16 px-6">
-        <div className="max-w-4xl mx-auto text-center mb-10">
-          <h2 className="text-3xl font-display font-bold text-[#3B3A36] mb-4">What Our Customers Say</h2>
-          <p className="text-[#6F4E37]">Real feedback from stationery lovers across Kenya.</p>
+      <section className="bg-[#F9F9F6] py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center mb-12">
+          <h2 className="text-3xl font-bold font-display text-[#1C6DD0] mb-2">What Our Customers Say</h2>
+          <p className="text-[#3B3A36]">Real stories from students, creatives, and professionals like you.</p>
         </div>
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <Testimonial
@@ -91,9 +92,9 @@ const Home = () => {
       {/* NEWSLETTER CTA */}
       <section className="bg-white py-20 px-6">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-[#3B3A36] mb-4">Stay Updated</h2>
-          <p className="text-[#6F4E37] mb-6">
-            Join our newsletter and be the first to know about new arrivals and offers.
+          <h2 className="text-2xl font-bold text-[#1C6DD0] mb-4 font-display">Stay Updated</h2>
+          <p className="text-[#3B3A36] mb-6">
+            Subscribe to get the latest on new products, offers, and events.
           </p>
           <form className="flex flex-col sm:flex-row gap-4 items-center justify-center">
             <Input
@@ -101,7 +102,9 @@ const Home = () => {
               placeholder="you@example.com"
               className="w-full sm:w-auto"
             />
-            <Button type="submit">Subscribe</Button>
+            <Button type="submit" className="bg-[#1C6DD0] hover:bg-[#175bbd] text-white">
+              Subscribe
+            </Button>
           </form>
         </div>
       </section>
@@ -109,17 +112,20 @@ const Home = () => {
   );
 };
 
+// Feature Card Component
 const Feature = ({ icon, title, description }) => (
-  <Card className="text-left border border-gray-200">
-    <CardHeader className="flex items-center gap-3 pb-2">{icon}
+  <Card className="text-left border border-[#E7E0CE] hover:shadow-md transition-all duration-200">
+    <CardHeader className="flex items-center gap-3 pb-2">
+      {icon}
       <CardTitle className="text-lg font-semibold text-[#3B3A36]">{title}</CardTitle>
     </CardHeader>
     <CardContent className="text-sm text-[#6F4E37]">{description}</CardContent>
   </Card>
 );
 
+// Testimonial Card
 const Testimonial = ({ name, quote }) => (
-  <Card className="bg-white border">
+  <Card className="bg-white border shadow-sm">
     <CardContent className="p-6">
       <p className="text-sm text-[#3B3A36] italic mb-2">"{quote}"</p>
       <div className="flex items-center gap-2 mt-2">
