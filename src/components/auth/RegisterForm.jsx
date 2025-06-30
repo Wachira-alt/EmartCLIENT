@@ -5,16 +5,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Button } from "@/components/ui/button";
 import FormField from "@/components/ui/form-field";
-import { Mail, Lock, User} from "lucide-react";
+import { Mail, Lock, User } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
-
-// 1. Zod schema
 const registerSchema = z.object({
-  username: z
-    .string()
-    .min(3, "Username too short")
-    .max(20, "Username too long"),
+  username: z.string().min(3, "Username too short").max(20, "Username too long"),
   email: z.string().email("Invalid email"),
   password: z
     .string()
@@ -27,6 +23,7 @@ const registerSchema = z.object({
 
 const RegisterForm = () => {
   const { register: registerUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const {
     control,
@@ -38,21 +35,23 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (data) => {
-  await toast.promise(
-    registerUser(data), // use correct function
-    {
-      loading: "Creating account...",
-      success: "Account created! 🎉",
-      error: (err) => {
-        if (err?.field && err?.error) {
-          setError(err.field, { message: err.error }); // optional field error
-        }
-        return err?.error || "Registration failed";
-      },
-    }
-  );
-};
+    await toast.promise(
+      registerUser(data), // throws on error
+      {
+        loading: "Creating account...",
+        success: "Account created! 🎉",
+        error: (err) => {
+          if (err?.field && err?.error) {
+            setError(err.field, { message: err.error });
+          }
+          return err?.error || "Registration failed";
+        },
+      }
+    );
 
+    
+    navigate("/login");
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto space-y-4">
@@ -63,7 +62,6 @@ const RegisterForm = () => {
         control={control}
         icon={User}
       />
-
       <FormField
         name="email"
         type="email"
@@ -72,7 +70,6 @@ const RegisterForm = () => {
         control={control}
         icon={Mail}
       />
-
       <FormField
         name="password"
         type="password"
@@ -81,7 +78,6 @@ const RegisterForm = () => {
         control={control}
         icon={Lock}
       />
-
       <Button type="submit" className="w-full" disabled={isSubmitting}>
         {isSubmitting ? "Registering..." : "Register"}
       </Button>
