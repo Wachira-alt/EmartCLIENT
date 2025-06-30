@@ -13,12 +13,12 @@ export default function Navbar() {
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  const navLink =
-    "text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-150";
+  const baseLink =
+    "relative text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-150 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 hover:after:w-full after:bg-blue-600 after:transition-all after:duration-300";
 
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50 font-body">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+    <nav className="bg-white/80 backdrop-blur-md shadow-md border-b border-[#E7E0CE] sticky top-0 z-50 font-body rounded-b-xl">
+      <div className="container mx-auto px-6 py-3 flex justify-between items-center">
 
         {/* Brand */}
         <Link
@@ -28,13 +28,25 @@ export default function Navbar() {
           elimu<span className="text-gray-700 font-body">emart</span>
         </Link>
 
-        {/* Navigation Links */}
+        {/* Navigation */}
         <div className="flex gap-6 items-center">
-          <NavLink to="/" className={navLink}>Home</NavLink>
-          <NavLink to="/products" className={navLink}>Products</NavLink>
+
+          {/* Highlight current page */}
+          <NavLink to="/" className={({ isActive }) => `${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`}>
+            Home
+          </NavLink>
+
+          <NavLink to="/products" className={({ isActive }) => `${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`}>
+            Products
+          </NavLink>
 
           {/* Cart */}
-          <NavLink to="/cart" className="relative flex items-center gap-1 text-sm hover:text-blue-600 transition">
+          <NavLink
+            to="/cart"
+            className={({ isActive }) =>
+              `relative flex items-center gap-1 ${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`
+            }
+          >
             <ShoppingCart size={18} />
             Cart
             {cartCount > 0 && (
@@ -60,10 +72,12 @@ export default function Navbar() {
                   Admin
                 </Button>
               )}
-
-              <NavLink to="/profile" className={navLink}>Profile</NavLink>
-              <NavLink to="/my-orders" className={navLink}>Orders</NavLink>
-
+              <NavLink to="/profile" className={({ isActive }) => `${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`}>
+                Profile
+              </NavLink>
+              <NavLink to="/my-orders" className={({ isActive }) => `${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`}>
+                Orders
+              </NavLink>
               <Button
                 size="sm"
                 variant="ghost"
@@ -75,7 +89,9 @@ export default function Navbar() {
               </Button>
             </>
           ) : (
-            <NavLink to="/login" className={navLink}>Login</NavLink>
+            <NavLink to="/login" className={({ isActive }) => `${baseLink} ${isActive ? "text-blue-600 after:w-full" : ""}`}>
+              Login
+            </NavLink>
           )}
         </div>
       </div>
