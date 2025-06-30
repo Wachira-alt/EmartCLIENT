@@ -2,6 +2,9 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { CartContext } from "../../context/CartContext";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ShoppingCart, LogOut } from "lucide-react";
 
 export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
@@ -9,62 +12,65 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   const navLink =
-    "text-sm font-medium text-[#3B3A36] hover:text-[#6F4E37] transition duration-200";
+    "text-sm font-medium text-[#3B3A36] hover:text-[#6F4E37] transition";
 
   return (
-    <nav className="bg-[#F5F3EA] shadow-md border-b border-[#E7E0CE]">
+    <nav className="bg-[#F5F3EA] border-b border-[#E7E0CE] shadow sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
 
-        {/* Logo = Home */}
+        {/* Branding */}
         <Link
           to="/"
-          className="text-xl font-bold tracking-tight text-[#6F4E37] hover:text-[#5A3E2B] transition"
+          className="text-2xl font-bold text-[#6F4E37] tracking-tight"
         >
           elimu<span className="text-[#3B3A36]">emart</span>
         </Link>
 
-        {/* Nav Links */}
+        {/* Navigation Links */}
         <div className="flex gap-6 items-center">
-
           <NavLink to="/" className={navLink}>Home</NavLink>
           <NavLink to="/products" className={navLink}>Products</NavLink>
 
-          {/* Cart Icon */}
-          <div className="relative">
-            <NavLink to="/cart" className={navLink}>Cart</NavLink>
+          {/* Cart */}
+          <NavLink to="/cart" className="relative flex items-center gap-1 text-sm hover:text-[#6F4E37]">
+            <ShoppingCart size={18} />
+            Cart
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-3 bg-[#6F4E37] text-white text-[10px] rounded-full px-[6px] py-[1px] shadow-inner">
+              <Badge variant="default" className="absolute -top-2 -right-4 text-[10px] px-1">
                 {cartCount}
-              </span>
+              </Badge>
             )}
-          </div>
+          </NavLink>
 
-          {/* Authenticated User */}
+          {/* Authenticated Links */}
           {user ? (
             <>
               {user.role === "admin" && (
-                <button
+                <Button
+                  size="sm"
+                  variant="secondary"
                   onClick={() => navigate("/admin")}
-                  className="text-xs bg-[#3B3A36] text-white px-3 py-1 rounded shadow hover:brightness-110"
                 >
                   Admin
-                </button>
+                </Button>
               )}
               <NavLink to="/profile" className={navLink}>Profile</NavLink>
               <NavLink to="/my-orders" className={navLink}>My Orders</NavLink>
-              {/* <NavLink to="/checkout" className={navLink}>Checkout</NavLink> */}
-              <button
+              <Button
+                size="sm"
+                variant="ghost"
                 onClick={logout}
-                className="text-xs text-[#6F4E37] hover:text-red-500 transition"
+                className="text-[#6F4E37] hover:text-red-500"
               >
+                <LogOut size={14} className="mr-1" />
                 Logout
-              </button>
+              </Button>
             </>
           ) : (
             <>
               <NavLink to="/login" className={navLink}>Login</NavLink>
-              {/* <NavLink to="/register" className={navLink}>Register</NavLink> */}
             </>
           )}
         </div>
