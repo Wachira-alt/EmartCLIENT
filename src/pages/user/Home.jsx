@@ -10,15 +10,15 @@ import {
 const Home = () => {
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#F5F3EA] to-white pb-24 pt-16 px-4 font-body overflow-hidden">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center z-10 relative">
+      {/* 🔥 Full-Screen Hero Section */}
+      <section className="relative bg-gradient-to-br from-[#F5F3EA] to-white min-h-screen flex items-center px-4 font-body overflow-hidden">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center w-full z-10">
           {/* Text Section */}
           <div className="text-center md:text-left">
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-[#3B3A36] mb-4 leading-tight">
               Customize Your Stationery with Style
             </h1>
-            <p className="text-[#6F4E37] text-lg sm:text-xl mb-6">
+            <p className="text-[#6F4E37] text-lg sm:text-xl mb-6 max-w-lg">
               Explore our wide selection of premium stationery — notebooks, pens, planners, and more — all customizable to fit your unique style.
             </p>
             <Link
@@ -29,7 +29,7 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* Image / Illustration */}
+          {/* Illustration */}
           <div className="hidden md:block">
             <img
               src="/hero-stationery.svg"
@@ -39,21 +39,20 @@ const Home = () => {
           </div>
         </div>
 
-        {/* SVG Blob Background at Bottom */}
+        {/* SVG Bottom Blob */}
         <svg
-          className="absolute bottom-0 left-0 w-full h-40"
+          className="absolute bottom-0 left-0 w-full h-40 pointer-events-none"
           viewBox="0 0 1440 320"
           preserveAspectRatio="none"
         >
           <path
             fill="#ffffff"
-            fillOpacity="1"
-            d="M0,128L40,133.3C80,139,160,149,240,170.7C320,192,400,224,480,240C560,256,640,256,720,250.7C800,245,880,235,960,213.3C1040,192,1120,160,1200,133.3C1280,107,1360,85,1400,74.7L1440,64L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
+            d="M0,192L60,176C120,160,240,128,360,133.3C480,139,600,181,720,197.3C840,213,960,203,1080,192C1200,181,1320,171,1380,165.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
           ></path>
         </svg>
       </section>
 
-      {/* Features Section */}
+      {/* 🧩 Features */}
       <section className="bg-white py-16 px-4">
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6">
           <Feature
