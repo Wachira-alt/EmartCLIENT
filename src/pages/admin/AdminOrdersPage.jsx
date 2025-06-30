@@ -3,9 +3,6 @@ import { fetchAllOrders, cancelOrder, updateOrderStatus } from "../../api/orders
 import AdminLayout from "../../components/admin/AdminLayout";
 import OrderCard from "../../components/admin/OrderCard";
 import { toast } from "sonner";
-import { Badge } from "@/components/ui/badge";
-
-
 
 const AdminOrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -20,30 +17,29 @@ const AdminOrdersPage = () => {
       setOrders(data);
     } catch (err) {
       console.error("Failed to load orders", err);
+      toast.error("Failed to load orders");
     }
   };
 
   const handleCancel = async (orderId) => {
-  if (window.confirm("Cancel this order?")) {
-    await toast.promise(cancelOrder(orderId), {
-      loading: "Cancelling order...",
-      success: "Order cancelled",
-      error: "Failed to cancel order",
+    if (window.confirm("Cancel this order?")) {
+      await toast.promise(cancelOrder(orderId), {
+        loading: "Cancelling order...",
+        success: "Order cancelled",
+        error: "Failed to cancel order",
+      });
+      loadOrders();
+    }
+  };
+
+  const handleStatusChange = async (orderId, newStatus) => {
+    await toast.promise(updateOrderStatus(orderId, newStatus), {
+      loading: "Updating status...",
+      success: "Status updated",
+      error: "Failed to update status",
     });
     loadOrders();
-  }
-};
-
-
- const handleStatusChange = async (orderId, newStatus) => {
-  await toast.promise(updateOrderStatus(orderId, newStatus), {
-    loading: "Updating status...",
-    success: "Status updated",
-    error: "Failed to update status",
-  });
-  loadOrders();
-};
-
+  };
 
   return (
     <AdminLayout>
