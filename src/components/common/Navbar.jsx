@@ -13,7 +13,8 @@ export default function Navbar() {
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  const navLink = "text-sm font-medium text-gray-700 hover:text-blue-600 transition";
+  const navLink =
+    "text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-150";
 
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50 font-body">
@@ -22,49 +23,54 @@ export default function Navbar() {
         {/* Brand */}
         <Link
           to="/"
-          className="text-2xl tracking-tight text-blue-600 font-display"
+          className="text-2xl tracking-tight font-display text-blue-600"
         >
           elimu<span className="text-gray-700 font-body">emart</span>
         </Link>
 
-        {/* Links */}
+        {/* Navigation Links */}
         <div className="flex gap-6 items-center">
-
           <NavLink to="/" className={navLink}>Home</NavLink>
           <NavLink to="/products" className={navLink}>Products</NavLink>
 
           {/* Cart */}
-          <NavLink to="/cart" className="relative flex items-center gap-1 text-sm hover:text-blue-600">
+          <NavLink to="/cart" className="relative flex items-center gap-1 text-sm hover:text-blue-600 transition">
             <ShoppingCart size={18} />
             Cart
             {cartCount > 0 && (
-              <Badge className="absolute -top-2 -right-3 text-[10px] px-1 py-0.5">
+              <Badge
+                variant="secondary"
+                className="absolute -top-2 -right-3 text-[10px] px-1 py-0.5"
+              >
                 {cartCount}
               </Badge>
             )}
           </NavLink>
 
-          {/* Authenticated User */}
+          {/* Authenticated */}
           {user ? (
             <>
               {user.role === "admin" && (
                 <Button
                   size="sm"
-                  variant="secondary"
+                  variant="outline"
                   onClick={() => navigate("/admin")}
+                  className="text-sm"
                 >
                   Admin
                 </Button>
               )}
+
               <NavLink to="/profile" className={navLink}>Profile</NavLink>
-              <NavLink to="/my-orders" className={navLink}>My Orders</NavLink>
+              <NavLink to="/my-orders" className={navLink}>Orders</NavLink>
+
               <Button
                 size="sm"
                 variant="ghost"
                 onClick={logout}
-                className="text-gray-600 hover:text-red-500"
+                className="flex items-center text-gray-600 hover:text-red-500"
               >
-                <LogOut size={14} className="mr-1" />
+                <LogOut size={16} className="mr-1" />
                 Logout
               </Button>
             </>
