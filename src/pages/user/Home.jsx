@@ -9,7 +9,7 @@ const Home = () => {
     <main className="font-body">
 
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-br from-[#FDF6EC] to-white pt-24 pb-40 px-6 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-[#FFF8F0] to-white pt-24 pb-40 px-6 relative overflow-hidden">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 items-center gap-12">
           {/* Left Text */}
           <div>
@@ -21,7 +21,7 @@ const Home = () => {
             </p>
             <Link
               to="/products"
-              className="inline-block bg-[#1C6DD0] hover:bg-[#175bbd] text-white px-6 py-3 rounded-lg shadow-md font-semibold text-sm transition"
+              className="inline-block bg-[#F4A261] hover:bg-[#e99658] text-white px-6 py-3 rounded-lg shadow-md font-semibold text-sm transition"
             >
               🛍️ Shop Now
             </Link>
@@ -50,12 +50,12 @@ const Home = () => {
       <section className="bg-white py-20 px-6">
         <div className="max-w-6xl mx-auto grid sm:grid-cols-3 gap-6">
           <Feature
-            icon={<PenTool size={28} className="text-[#1C6DD0]" />}
+            icon={<PenTool size={28} className="text-[#F4A261]" />}
             title="Custom Engraving"
             description="Add your name, logo, or message to any product."
           />
           <Feature
-            icon={<Truck size={28} className="text-[#1C6DD0]" />}
+            icon={<Truck size={28} className="text-[#F4A261]" />}
             title="Fast Delivery"
             description="Nationwide shipping in 2–5 business days."
           />
@@ -68,7 +68,7 @@ const Home = () => {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="bg-[#F9F9F6] py-20 px-6">
+      <section className="bg-[#FAF9F6] py-20 px-6">
         <div className="max-w-4xl mx-auto text-center mb-12">
           <h2 className="text-3xl font-bold font-display text-[#1C6DD0] mb-2">What Our Customers Say</h2>
           <p className="text-[#3B3A36]">Real stories from students, creatives, and professionals like you.</p>
@@ -102,7 +102,10 @@ const Home = () => {
               placeholder="you@example.com"
               className="w-full sm:w-auto"
             />
-            <Button type="submit" className="bg-[#1C6DD0] hover:bg-[#175bbd] text-white">
+            <Button
+              type="submit"
+              className="bg-[#F4A261] hover:bg-[#e99658] text-white"
+            >
               Subscribe
             </Button>
           </form>
