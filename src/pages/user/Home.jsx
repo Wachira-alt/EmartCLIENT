@@ -29,7 +29,7 @@ const Home = () => {
 
           {/* Right Image */}
           <div className="hidden md:block">
-            <img src="https://cdn.pixabay.com/photo/2015/09/05/23/05/pencils-926078_1280.jpg" alt="Stationery" className="w-full max-w-md drop-shadow-md" />
+            <img src="https://cdn.pixabay.com/photo/2016/11/18/12/55/office-1834294_960_720.jpg" alt="Stationery" className="w-full max-w-md drop-shadow-md" />
           </div>
         </div>
 
